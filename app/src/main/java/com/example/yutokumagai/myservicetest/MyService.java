@@ -2,10 +2,13 @@ package com.example.yutokumagai.myservicetest;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 
 public class MyService extends Service {
+
     public MyService() {
     }
 
@@ -30,7 +33,18 @@ public class MyService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        if(IMyAidlInterface.class.getName().equals(intent.getAction())){
+            // ISampleServiceの実装クラスのインスタンスを返す
+            Log.i("i","hoge");
+            return sampleSerciceIf;
+        }
+        return null;
     }
+
+    private IMyAidlInterface.Stub sampleSerciceIf = new IMyAidlInterface.Stub(){
+        @Override
+        public int add(int a, int b) throws RemoteException {
+            return a + b;
+        }
+    };
 }

@@ -19,7 +19,11 @@
         <service
             android:name=".MyService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.yutokumagai.IMyAidlInterface" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
